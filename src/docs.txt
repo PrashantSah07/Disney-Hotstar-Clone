@@ -1,0 +1,28 @@
+1. Search by Keyword (Text Search);      https://api.themoviedb.org/3/search/movie?api_key=YOUR_API_KEY&query=Inception
+2. Search by Release Date                https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&primary_release_year=2023
+3. Search by Popularity                  https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&sort_by=popularity.desc
+4. Search by Language                    https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&language=en
+5. Search by Vote Average (Rating)       https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&vote_average.gte=8
+6. Search by Adult Content Filter        https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&include_adult=false
+7. Search by Certification/Rating System https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&certification_country=US&certification=PG-13
+8. Search by Tag (Keywords/Tags)         https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&with_keywords=action
+9. Upcoming Movies                       https://api.themoviedb.org/3/movie/upcoming?api_key=YOUR_API_KEY
+10. Trending Content                     https://api.themoviedb.org/3/trending/movie/day?api_key=YOUR_API_KEY
+11. Popular Movies                       https://api.themoviedb.org/3/movie/popular?api_key=YOUR_API_KEY
+12. Top-Rated Movies or TV Shows         https://api.themoviedb.org/3/movie/top_rated?api_key=YOUR_API_KEY
+13. Discover Movie Shows (with filters)  https://api.themoviedb.org/3/discover/movie?api_key=YOUR_API_KEY&with_genres=16
+14. Get Movie  Details                   https://api.themoviedb.org/3/movie/{movie_id}?api_key=YOUR_API_KEY
+15. Get Movie Videos (Trailers)          https://api.themoviedb.org/3/movie/{movie_id}/videos?api_key=YOUR_API_KEY
+
+
+🔍 1. Search TV Shows by Name           https://api.themoviedb.org/3/search/tv?api_key=YOUR_API_KEY&query=breaking+bad
+🔥 2. Trending TV Shows                 https://api.themoviedb.org/3/trending/tv/day?api_key=YOUR_API_KEY
+⭐ 3. Popular TV Shows                  https://api.themoviedb.org/3/tv/popular?api_key=YOUR_API_KEY
+🏆 4. Top Rated TV Shows                https://api.themoviedb.org/3/tv/top_rated?api_key=YOUR_API_KEY
+📺 5. Currently Airing TV Shows         https://api.themoviedb.org/3/tv/on_the_air?api_key=YOUR_API_KEY
+📆 6. TV Shows Airing Today             https://api.themoviedb.org/3/tv/airing_today?api_key=YOUR_API_KEY
+🧭 7. Discover TV Shows (with filters)  https://api.themoviedb.org/3/discover/tv?api_key=YOUR_API_KEY&with_genres=16
+📖 8. Get TV Show Details               https://api.themoviedb.org/3/tv/{tv_id}?api_key=YOUR_API_KEY
+🎞 9. Get TV Show Videos (Trailers)      https://api.themoviedb.org/3/tv/{tv_id}/videos?api_key=YOUR_API_KEY
+
+
