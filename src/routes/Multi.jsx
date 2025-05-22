@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetchDetailed from '../hooks/useFetchDetailed';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -7,6 +7,8 @@ import { AnimatePresence } from 'framer-motion';
 import CardView from '../components/CardView';
 import DetailedCardView from '../components/DetailedCardView';
 import LoadingBrowseSection from '../components/LoadingBrowseSection';
+import errorImg from '../assets/images/soul-custom-error.webp'
+import { IoMdRefresh } from "react-icons/io";
 
 const Multi = () => {
     const { id } = useParams();
@@ -89,7 +91,19 @@ const Multi = () => {
             <div className='bg-gradient-to-b from-[#16181f] to-[#0f1014] text-white min-h-screen'>
                 <Navbar />
                 <div className='sm:ml-[85px] ml-[55px] sm:py-8 pb-8 pt-3 sm:px-5 px-2'>
-                    {error ? <h1>{error}</h1> :
+                    {error ? <div className='bg-gradient-to-b from-[#16181f] to-[#0f1014] text-white'>
+                        <Navbar />
+                        <div className=''>
+                            <div className='flex justify-center items-center flex-col mt-5 min-h-screen'>
+                                <img className='max-w-[150px]' src={errorImg} alt="error" />
+                                <h1 className='relative bottom-20 md:text-3xl text-2xl font-medium sm:w-[400px] text-center px-2'>{error || error.message}</h1>
+                                <button className='relative bottom-10 flex items-center gap-2 bg-[#e1e6f0] text-black text-[18px] rounded-lg sm:px-20 px-15 py-3 font-semibold hover:scale-[1.02] duration-200' onClick={function () {
+                                    window.location.reload();
+                                }}><IoMdRefresh size={25} /> Retry</button>
+                            </div>
+                            <Footer />
+                        </div>
+                    </div> :
                         <div>
                             {loading ? <div className='flex flex-col gap-5 max-w-[3000px] mx-auto'>
                                 <div className='w-full h-[800px] bg-gray-800 animate-pulse rounded-2xl lg:flex hidden'>
@@ -275,55 +289,77 @@ const Multi = () => {
                                             <h1 className='text-[22px] font-medium'>Similar</h1>
                                             <div className='justify-center items-center flex-wrap gap-x-2 sm:gap-y-7 gap-y-3 grid 2xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-3'>
                                                 {data.similar?.results?.map(function (similar, index) {
-                                                    return <img className='rounded-lg cursor-pointer bg-[#282a31]' key={index} src={`https://image.tmdb.org/t/p/original/${similar.poster_path || similar.backdrop_path}`} alt={similar.name || similar.title || similar.original_name || 'poster'}
-                                                        onMouseEnter={(e) => {
-                                                            if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                                                            const rect = e.currentTarget.getBoundingClientRect();
-                                                            const x = rect.left + rect.width / 2 + window.scrollX;
-                                                            const y = rect.top + window.scrollY;
+                                                    const slug = (similar.title || similar.name || similar.original_name)?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                                                    return <div key={index}>
 
-                                                            hoverTimeout.current = setTimeout(() => {
-                                                                setCardData(similar);
-                                                                setCardPosition({ x, y });
-                                                            }, 1000);
+                                                        <Link to={`/multi/${slug}/${similar.id}`} className='flex sm:hidden'>
+                                                            <img className='rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original/${similar.poster_path || similar.backdrop_path}`} alt={similar.name || similar.title || similar.original_name || 'poster'} onClick={function () {
+                                                                window.scrollTo({ top: 0 });
+                                                            }} />
+                                                        </Link>
 
-                                                        }}
-                                                        onMouseLeave={() => {
-                                                            if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                                                            setCardData(null);
-                                                        }} onClick={function () {
-                                                            setMovieId(similar.id);
-                                                        }} />
+                                                        <img className='hidden sm:flex rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original/${similar.poster_path || similar.backdrop_path}`} alt={similar.name || similar.title || similar.original_name || 'poster'}
+                                                            onMouseEnter={(e) => {
+                                                                if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                                                                const rect = e.currentTarget.getBoundingClientRect();
+                                                                const x = rect.left + rect.width / 2 + window.scrollX;
+                                                                const y = rect.top + window.scrollY;
+
+                                                                hoverTimeout.current = setTimeout(() => {
+                                                                    setCardData(similar);
+                                                                    setCardPosition({ x, y });
+                                                                }, 1000);
+
+                                                            }}
+                                                            onMouseLeave={() => {
+                                                                if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                                                                setCardData(null);
+                                                            }} onClick={function () {
+                                                                setMovieId(similar.id);
+                                                            }} />
+                                                    </div>
                                                 })}
                                             </div>
-                                        </div>}
+                                        </div>
+                                    }
                                     {data.recommendations?.results?.length > 0 &&
                                         <div className='flex flex-col gap-2'>
                                             <h1 className='text-[22px] font-medium'>Recommendations</h1>
                                             <div className='justify-center items-center flex-wrap gap-x-2 sm:gap-y-7 gap-y-3 grid 2xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-3'>
                                                 {data.recommendations?.results?.map(function (recommendations, index) {
-                                                    return <img className='rounded-lg cursor-pointer bg-[#282a31]' key={index} src={`https://image.tmdb.org/t/p/original/${recommendations.poster_path || recommendations.backdrop_path}`} alt={recommendations.name || recommendations.title || recommendations.original_name || 'poster'}
-                                                        onMouseEnter={(e) => {
-                                                            if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                                                            const rect = e.currentTarget.getBoundingClientRect();
-                                                            const x = rect.left + rect.width / 2 + window.scrollX;
-                                                            const y = rect.top + window.scrollY;
+                                                    const slug = (recommendations.title || recommendations.name || recommendations.original_name)?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                                                    return <div key={index}>
 
-                                                            hoverTimeout.current = setTimeout(() => {
-                                                                setCardData(recommendations);
-                                                                setCardPosition({ x, y });
-                                                            }, 1000);
+                                                        <Link to={`/multi/${slug}/${recommendations.id}`} className='flex sm:hidden'>
+                                                            <img className='rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original/${recommendations.poster_path || recommendations.backdrop_path}`} alt={recommendations.name || recommendations.title || recommendations.original_name || 'poster'} onClick={function () {
+                                                                window.scrollTo({ top: 0 });
+                                                            }} />
+                                                        </Link>
 
-                                                        }}
-                                                        onMouseLeave={() => {
-                                                            if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                                                            setCardData(null);
-                                                        }} onClick={function () {
-                                                            setMovieId(recommendations.id);
-                                                        }} />
+                                                        <img className='hidden sm:flex rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original/${recommendations.poster_path || recommendations.backdrop_path}`} alt={recommendations.name || recommendations.title || recommendations.original_name || 'poster'}
+                                                            onMouseEnter={(e) => {
+                                                                if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                                                                const rect = e.currentTarget.getBoundingClientRect();
+                                                                const x = rect.left + rect.width / 2 + window.scrollX;
+                                                                const y = rect.top + window.scrollY;
+
+                                                                hoverTimeout.current = setTimeout(() => {
+                                                                    setCardData(recommendations);
+                                                                    setCardPosition({ x, y });
+                                                                }, 1000);
+
+                                                            }}
+                                                            onMouseLeave={() => {
+                                                                if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                                                                setCardData(null);
+                                                            }} onClick={function () {
+                                                                setMovieId(recommendations.id);
+                                                            }} />
+                                                    </div>
                                                 })}
                                             </div>
-                                        </div>}
+                                        </div>
+                                    }
                                 </div>
                             }
                         </div>

@@ -46,7 +46,10 @@ const CardView = ({ data, setCardData, position }) => {
             <div className='w-full px-2.5 py-2 flex flex-col gap-2'>
                 <div className='flex gap-1.5 relative'>
                     <Link className='w-[90%]' to={`/multi/${slug}/${data.id}`}>
-                        <button className='bg-white text-black w-full text-[15px] font-semibold flex justify-center items-center gap-2 px-4 py-3 rounded-lg'>
+                        <button className='bg-white text-black w-full text-[15px] font-semibold flex justify-center items-center gap-2 px-4 py-3 rounded-lg'
+                            onClick={function () {
+                                window.scrollTo({ top: 0 });
+                            }}>
                             <FaPlay size={12} /> Watch Now
                         </button></Link>
                     <button className='bg-[#282a31] text-white px-4 rounded-lg' onMouseEnter={function () {

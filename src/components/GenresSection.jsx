@@ -55,39 +55,52 @@ const GenresSection = ({ heading, url }) => {
                     <Link to='/browse' state={{ heading, url }}><button className='flex justify-center items-center text-[#b0b4c3] font-medium'><span className='hidden sm:flex'>View All</span><MdKeyboardArrowRight size={25} /></button></Link>
                 </div>
 
-                {loading ? <LoadingEffect loopCount={20} /> : <div ref={elementRef} className='flex items-center gap-3 overflow-x-auto scroll-smooth hide-scrollbar overflow-y-hidden'>
-                    {data.results?.map((value, index) => (
-                        <img
-                            onMouseEnter={(e) => {
-                                if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                {loading ? <LoadingEffect loopCount={20} /> :
+                    <div ref={elementRef} className='flex items-center gap-3 overflow-x-auto scroll-smooth hide-scrollbar overflow-y-hidden'>
+                        {data.results?.map((value, index) => {
+                            const slug = (value.title || value.name || value.original_name)?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                            return <div key={index}>
 
-                                const rect = e.currentTarget.getBoundingClientRect();
-                                const x = rect.left + rect.width / 2 + window.scrollX;
-                                const y = rect.top + window.scrollY;
+                                <Link to={`/multi/${slug}/${value.id}`} className='flex sm:hidden'>
+                                    <img
+                                        src={`https://image.tmdb.org/t/p/original${value.poster_path}`}
+                                        alt={value.title || value.name}
+                                        className='xl:min-w-[200px] xl:h-[250px] lg:min-w-[180px] sm:min-w-[130px] min-w-[100px] object-cover object-center cursor-pointer rounded-sm transition bg-[#282a31]'
+                                        onClick={function () {
+                                            window.scrollTo({ top: 0 });
+                                        }} />
+                                </Link>
+                                <img
+                                    onMouseEnter={(e) => {
+                                        if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
 
-                                hoverTimeout.current = setTimeout(() => {
-                                    setCardData(value);
-                                    setCardPosition({ x, y });
-                                }, 1000);
-                            }}
+                                        const rect = e.currentTarget.getBoundingClientRect();
+                                        const x = rect.left + rect.width / 2 + window.scrollX;
+                                        const y = rect.top + window.scrollY;
 
-                            onMouseLeave={() => {
-                                if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                                setCardData(null);
-                            }}
-                            onClick={
-                                function () {
-                                    setMovieId(value.id);
-                                }
-                            }
+                                        hoverTimeout.current = setTimeout(() => {
+                                            setCardData(value);
+                                            setCardPosition({ x, y });
+                                        }, 1000);
+                                    }}
 
-                            key={index}
-                            src={`https://image.tmdb.org/t/p/original${value.poster_path}`}
-                            alt={value.title || value.name}
-                            className='xl:min-w-[200px] xl:h-[250px] lg:min-w-[180px] sm:min-w-[130px] min-w-[100px] object-cover object-center cursor-pointer rounded-sm transition bg-[#282a31]'
-                        />
-                    ))}
-                </div>}
+                                    onMouseLeave={() => {
+                                        if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                                        setCardData(null);
+                                    }}
+                                    onClick={
+                                        function () {
+                                            setMovieId(value.id);
+                                        }
+                                    }
+                                    src={`https://image.tmdb.org/t/p/original${value.poster_path}`}
+                                    alt={value.title || value.name}
+                                    className='hidden sm:flex xl:min-w-[200px] xl:h-[250px] lg:min-w-[180px] sm:min-w-[130px] min-w-[100px] object-cover object-center cursor-pointer rounded-sm transition bg-[#282a31]'
+                                />
+
+                            </div>
+                        })}
+                    </div>}
             </div>
         </div>
     )

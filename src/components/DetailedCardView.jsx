@@ -161,7 +161,11 @@ const DetailedCardView = ({ movieId, setMovieId }) => {
                                     </div>
                                     <div className="flex gap-2 relative">
                                         <Link className="w-full" to={`/multi/${slug}/${movieId}`}>
-                                            <button className="w-full bg-gradient-to-r from-[#138df9] via-[#914fd3] to-[#ff007b] text-sm font-semibold flex justify-center items-center gap-2 px-5 py-4 rounded-lg">
+                                            <button className="w-full bg-gradient-to-r from-[#138df9] via-[#914fd3] to-[#ff007b] text-sm font-semibold flex justify-center items-center gap-2 px-5 py-4 rounded-lg"
+                                                onClick={function () {
+                                                    window.scrollTo({ top: 0 });
+                                                    setMovieId(null);
+                                                }}>
                                                 <FaPlay size={12} /> Watch Now
                                             </button>
                                         </Link>

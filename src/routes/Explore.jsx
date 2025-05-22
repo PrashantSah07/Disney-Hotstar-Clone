@@ -8,6 +8,7 @@ import { AnimatePresence } from 'framer-motion';
 import CardView from '../components/CardView';
 import DetailedCardView from '../components/DetailedCardView'
 import errorImg from '../assets/images/soul-custom-error.webp'
+import { Link } from 'react-router-dom';
 
 const Explore = () => {
   const [inputValue, setInputValue] = useState('');
@@ -61,26 +62,36 @@ const Explore = () => {
             {loading ? <LoadingBrowseSection loopCount={200} /> :
               <div className='justify-center items-center flex-wrap gap-x-2 sm:gap-y-7 gap-y-3 grid 2xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-3'>
                 {finalData?.map(function (value, index) {
-                  return <img key={index} className='rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original${value.poster_path}`} alt={value.title || value.name || "Poster"}
-                    onMouseEnter={(e) => {
-                      if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                      const rect = e.currentTarget.getBoundingClientRect();
-                      const x = rect.left + rect.width / 2 + window.scrollX;
-                      const y = rect.top + window.scrollY;
+                  const slug = (value.title || value.name || value.original_name)?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                  return <div key={index}>
+                    <Link to={`/multi/${slug}/${value.id}`} className='flex sm:hidden'>
+                      <img className='rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original${value.poster_path}`} alt={value.title || value.name || "Poster"}
+                        onClick={function () {
+                          window.scrollTo({ top: 0 });
+                        }} />
+                    </Link>
 
-                      hoverTimeout.current = setTimeout(() => {
-                        setCardData(value);
-                        setCardPosition({ x, y });
-                      }, 1000);
+                    <img className='hidden sm:flex rounded-lg cursor-pointer bg-[#282a31]' src={`https://image.tmdb.org/t/p/original${value.poster_path}`} alt={value.title || value.name || "Poster"}
+                      onMouseEnter={(e) => {
+                        if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                        const rect = e.currentTarget.getBoundingClientRect();
+                        const x = rect.left + rect.width / 2 + window.scrollX;
+                        const y = rect.top + window.scrollY;
 
-                    }}
-                    onMouseLeave={() => {
-                      if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
-                      setCardData(null);
-                    }}
-                    onClick={function () {
-                      setMovieId(value.id);
-                    }} />
+                        hoverTimeout.current = setTimeout(() => {
+                          setCardData(value);
+                          setCardPosition({ x, y });
+                        }, 1000);
+
+                      }}
+                      onMouseLeave={() => {
+                        if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
+                        setCardData(null);
+                      }}
+                      onClick={function () {
+                        setMovieId(value.id);
+                      }} />
+                  </div>
                 })}
               </div>}
           </div>
