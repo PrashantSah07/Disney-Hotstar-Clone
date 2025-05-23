@@ -91,17 +91,13 @@ const Multi = () => {
             <div className='bg-gradient-to-b from-[#16181f] to-[#0f1014] text-white min-h-screen'>
                 <Navbar />
                 <div className='sm:ml-[85px] ml-[55px] sm:py-8 pb-8 pt-3 sm:px-5 px-2'>
-                    {error ? <div className='bg-gradient-to-b from-[#16181f] to-[#0f1014] text-white'>
-                        <Navbar />
-                        <div className=''>
-                            <div className='flex justify-center items-center flex-col mt-5 min-h-screen'>
-                                <img className='max-w-[150px]' src={errorImg} alt="error" />
-                                <h1 className='relative bottom-20 md:text-3xl text-2xl font-medium sm:w-[400px] text-center px-2'>{error || error.message}</h1>
-                                <button className='relative bottom-10 flex items-center gap-2 bg-[#e1e6f0] text-black text-[18px] rounded-lg sm:px-20 px-15 py-3 font-semibold hover:scale-[1.02] duration-200' onClick={function () {
-                                    window.location.reload();
-                                }}><IoMdRefresh size={25} /> Retry</button>
-                            </div>
-                            <Footer />
+                    {error ? <div className='text-white'>
+                        <div className='flex justify-center items-center flex-col mt-5 min-h-screen'>
+                            <img className='max-w-[150px]' src={errorImg} alt="error" />
+                            <h1 className='relative bottom-20 md:text-3xl text-2xl font-medium sm:w-[400px] text-center px-2'>{error || error.message}</h1>
+                            <button className='relative bottom-10 flex items-center gap-2 bg-[#e1e6f0] text-black text-[18px] rounded-lg sm:px-20 px-15 py-3 font-semibold hover:scale-[1.02] duration-200' onClick={function () {
+                                window.location.reload();
+                            }}><IoMdRefresh size={25} /> Retry</button>
                         </div>
                     </div> :
                         <div>
