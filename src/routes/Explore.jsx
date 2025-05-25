@@ -59,7 +59,7 @@ const Explore = () => {
               <img className='max-w-[150px]' src={errorImg} alt="error" />
               <h1 className='relative bottom-20 md:text-3xl text-2xl font-medium sm:w-[400px] text-center px-2'>Couldn't find what you are looking for!</h1>
             </div>}
-            {loading ? <LoadingBrowseSection loopCount={200} /> :
+            {loading ? <LoadingBrowseSection loopCount={70} /> :
               <div className='justify-center items-center flex-wrap gap-x-2 sm:gap-y-7 gap-y-3 grid 2xl:grid-cols-7 lg:grid-cols-6 md:grid-cols-5 sm:grid-cols-4 grid-cols-3'>
                 {finalData?.map(function (value, index) {
                   const slug = (value.title || value.name || value.original_name)?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
