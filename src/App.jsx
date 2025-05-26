@@ -64,10 +64,61 @@ const App = () => {
   const formatDate = (date) => date.toISOString().split("T")[0];
 
 
-  const studios = [hotstar, disney, hbo, peacock, paramount, marvel, pixar, starwars, national];
-  const PopuLanguage = [hindi, english, tamil, telugu, malayalam, bengali, marathi, kannada, odia, japanese, korean];
-  const PopuGenres = [romance, drama, family, reality, comedy, crime, action];
-  const PopuChannels = [starPlus, colors, starUtsav, starBharat, star3, star2, starPravah, star1, colors1, star4, asianet, colorsMarathi, colorsGujrati, colorsBengali, nick, mtv, abcStudio];
+const studios = [
+  { src: hotstar, name: 'Hotstar' },
+  { src: disney, name: 'Disney' },
+  { src: hbo, name: 'HBO' },
+  { src: peacock, name: 'Peacock' },
+  { src: paramount, name: 'Paramount' },
+  { src: marvel, name: 'Marvel' },
+  { src: pixar, name: 'Pixar' },
+  { src: starwars, name: 'Starwars' },
+  { src: national, name: 'National' }
+];
+
+const PopuLanguage = [
+  { src: hindi, name: 'Hindi' },
+  { src: english, name: 'English' },
+  { src: tamil, name: 'Tamil' },
+  { src: telugu, name: 'Telugu' },
+  { src: malayalam, name: 'Malayalam' },
+  { src: bengali, name: 'Bengali' },
+  { src: marathi, name: 'Marathi' },
+  { src: kannada, name: 'Kannada' },
+  { src: odia, name: 'Odia' },
+  { src: japanese, name: 'Japanese' },
+  { src: korean, name: 'Korean' }
+];
+
+const PopuGenres = [
+  { src: romance, name: 'Romance' },
+  { src: drama, name: 'Drama' },
+  { src: family, name: 'Family' },
+  { src: reality, name: 'Reality' },
+  { src: comedy, name: 'Comedy' },
+  { src: crime, name: 'Crime' },
+  { src: action, name: 'Action' }
+];
+
+const PopuChannels = [
+  { src: starPlus, name: 'Star Plus' },
+  { src: colors, name: 'Colors' },
+  { src: starUtsav, name: 'Star Utsav' },
+  { src: starBharat, name: 'Star Bharat' },
+  { src: star3, name: 'Star Vijay' },
+  { src: star2, name: 'Star Maa' },
+  { src: starPravah, name: 'Star Pravah' },
+  { src: star1, name: 'Star Jalsha' },
+  { src: colors1, name: 'Colors Kannada' },
+  { src: star4, name: 'Colors Suvarna' },
+  { src: asianet, name: 'Asianet' },
+  { src: colorsMarathi, name: 'Colors Marathi' },
+  { src: colorsGujrati, name: 'Colors Gujrati' },
+  { src: colorsBengali, name: 'Colors Bangla' },
+  { src: nick, name: 'Nick' },
+  { src: mtv, name: 'MTV' },
+  { src: abcStudio, name: 'Abc Studio' }
+];
 
   return (
     <div className='bg-[#0f1014] text-white'>

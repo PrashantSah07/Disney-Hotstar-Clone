@@ -75,7 +75,25 @@ const Shows = () => {
   const [title, setTitle] = useState(false);
   const slug = (data?.name || data?.original_name)?.toLowerCase().replace(/[^a-z0-9]+/g, '-');
   const api_key = '6b03720f12b1780deb6f627085df7549';
-  const PopuChannels = [starPlus, colors, starUtsav, starBharat, star3, star2, starPravah, star1, colors1, star4, asianet, colorsMarathi, colorsGujrati, colorsBengali, nick, mtv, abcStudio];
+  const PopuChannels = [
+    { src: starPlus, name: 'Star Plus' },
+    { src: colors, name: 'Colors' },
+    { src: starUtsav, name: 'Star Utsav' },
+    { src: starBharat, name: 'Star Bharat' },
+    { src: star3, name: 'Star Vijay' },
+    { src: star2, name: 'Star Maa' },
+    { src: starPravah, name: 'Star Pravah' },
+    { src: star1, name: 'Star Jalsha' },
+    { src: colors1, name: 'Colors Kannada' },
+    { src: star4, name: 'Colors Suvarna' },
+    { src: asianet, name: 'Asianet' },
+    { src: colorsMarathi, name: 'Colors Marathi' },
+    { src: colorsGujrati, name: 'Colors Gujrati' },
+    { src: colorsBengali, name: 'Colors Bangla' },
+    { src: nick, name: 'Nick' },
+    { src: mtv, name: 'MTV' },
+    { src: abcStudio, name: 'Abc Studio' }
+  ];
 
   return (
     <div className="bg-gradient-to-b from-[#16181f] to-[#0f1014] text-white min-h-screen">

@@ -37,7 +37,7 @@ const Footer = () => {
                     <Link><FiFacebook size={27} /></Link>
                     <Link><FaXTwitter size={27} /></Link>
                 </div>
-                <div className='flex  gap-2' >
+                <div className='flex sm:flex-nowrap flex-wrap gap-2' >
                     <img className='sm:max-w-[130px] max-w-[110px]' src={playStore} alt="play-store" />
                     <img className='sm:max-w-[130px] max-w-[110px]' src={appStore} alt="app-store" />
                 </div>
