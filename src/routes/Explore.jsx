@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar'
 import { IoSearch } from "react-icons/io5";
 import Footer from '../components/Footer'
@@ -13,10 +13,18 @@ import { Link } from 'react-router-dom';
 const Explore = () => {
   const [inputValue, setInputValue] = useState('');
   const [movieId, setMovieId] = useState(null);
+  const [searchURL, setSearchURL] = useState('https://api.themoviedb.org/3/discover/movie?api_key=6b03720f12b1780deb6f627085df7549&with_genres=53&with_origin_country=IN&sort_by=popularity.desc')
 
-  const searchURL = inputValue.trim()
-    ? `https://api.themoviedb.org/3/search/multi?api_key=6b03720f12b1780deb6f627085df7549&query=${inputValue}`
-    : `https://api.themoviedb.org/3/discover/movie?api_key=6b03720f12b1780deb6f627085df7549&with_genres=53&with_origin_country=IN&sort_by=popularity.desc`;
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      const url = inputValue.trim()
+        ? `https://api.themoviedb.org/3/search/multi?api_key=6b03720f12b1780deb6f627085df7549&query=${inputValue}`
+        : 'https://api.themoviedb.org/3/discover/movie?api_key=6b03720f12b1780deb6f627085df7549&with_genres=53&with_origin_country=IN&sort_by=popularity.desc';
+      setSearchURL(url);
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
+  }, [inputValue]);
 
   const { data, loading, error } = useFetchAllData(searchURL);
 

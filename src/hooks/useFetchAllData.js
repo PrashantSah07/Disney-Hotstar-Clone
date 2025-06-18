@@ -6,7 +6,7 @@ function useFetchAllData(url) {
   const [error, setError] = useState(null);
 
   // Max pages limit and delay between requests in ms
-  const MAX_PAGES = 20;
+  const MAX_PAGES = 10;
   const DELAY_MS = 300;
 
   useEffect(() => {

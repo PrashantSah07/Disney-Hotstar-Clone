@@ -55,8 +55,6 @@ const Multi = () => {
         }
     }, [data]);
 
-    console.log(data);
-
     const cast = data.credits?.cast?.filter(function (e) {
         return e.profile_path;
     })
